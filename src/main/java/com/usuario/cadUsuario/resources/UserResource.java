@@ -1,21 +1,33 @@
 package com.usuario.cadUsuario.resources;
 
-import java.time.LocalDate;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.usuario.cadUsuario.entities.User;
+import com.usuario.cadUsuario.services.UserService;
 
 @RestController
 @RequestMapping(value="/users")
 public class UserResource {
 	
-	@GetMapping
-	public ResponseEntity<User> findAll() {
-		User u = new User(1L, "Felipe Guimarães", "felipe@gmail.com", "123.123.123-12", LocalDate.parse("1996-06-24"));
-		return ResponseEntity.ok().body(u);
+	@Autowired
+	private UserService service;
+	
+	@GetMapping(value="/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping
+	public ResponseEntity<User> insert(@RequestBody User obj) {
+		obj = service.insert(obj);
+		return ResponseEntity.ok().body(obj);
 	}
 }
