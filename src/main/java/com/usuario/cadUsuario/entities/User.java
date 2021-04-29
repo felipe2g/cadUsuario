@@ -1,6 +1,7 @@
 package com.usuario.cadUsuario.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -9,14 +10,14 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String cpf;
-	private String birthday;
+	private LocalDate birthday;
 	
 	
 	//É Obrigatório um construtor vazio
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String cpf, String birthday) {
+	public User(Long id, String name, String email, String cpf, LocalDate birthday) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,11 +58,11 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public String getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
