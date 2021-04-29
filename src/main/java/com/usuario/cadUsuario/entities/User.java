@@ -2,13 +2,20 @@ package com.usuario.cadUsuario.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -16,16 +23,23 @@ public class User implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@Column(unique=true)
 	private String email;
+	
+	@Column(unique=true)
 	private String cpf;
 	private LocalDate birthday;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+	private List<Address> addressList;
 	
 	
 	//É Obrigatório um construtor vazio
 	public User() {
 	}
-
-	public User(Long id, String name, String email, String cpf, LocalDate birthday) {
+	
+	public User(Long id, String name, String email, String cpf, LocalDate birthday, List<Address> addressList) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -33,6 +47,7 @@ public class User implements Serializable {
 		this.cpf = cpf;
 		this.birthday = birthday;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -72,6 +87,15 @@ public class User implements Serializable {
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
+	}
+	
+	
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	@Override
