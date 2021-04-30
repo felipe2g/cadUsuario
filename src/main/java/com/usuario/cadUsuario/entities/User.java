@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="user")
@@ -22,13 +23,19 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
 	private String name;
 	
-	@Column(unique=true)
+	@NotNull
+	@Column(unique = true)
 	private String email;
 	
-	@Column(unique=true)
+	@NotNull
+	@Column(unique = true)
 	private String cpf;
+	
+	@NotNull
 	private LocalDate birthday;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="user")
